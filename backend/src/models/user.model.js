@@ -30,16 +30,12 @@ const userSchema = new Schema(
             type: String,
             minLength: [10, "Phone Number must caontain exact 10 digits."],
             maxLength: [10, "Phone Number must caontain exact 10 digits."],
+            required: true,
+            unique: true
         },
         profileImage: {
-            public_id: {
-                type: String,
-                required: true,
-            },
-            url: {
-                type: String,
-                required: true,
-            },
+            type: String, // cloudinary url
+            required: true,
         },
         password: {
             type: String,
