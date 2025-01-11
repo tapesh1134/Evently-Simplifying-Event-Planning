@@ -119,6 +119,14 @@ const loginUser = asyncHandler(async (req, res) => {
         )
 })
 
+const getProfile = asyncHandler(async (req, res, next) => {
+    const user = req.user;
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
@@ -195,5 +203,6 @@ export {
     registerUser,
     loginUser,
     logoutUser,
+    getProfile,
     refreshAccessToken
 };
