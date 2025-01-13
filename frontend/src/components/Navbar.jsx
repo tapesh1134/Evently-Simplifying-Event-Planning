@@ -28,8 +28,9 @@ const Navbar = () => {
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex-shrink-0 items-center">
                             <Link to="/">
-                                <h3 className="text-2xl text-white font-bold">
-                                    EventLy
+                                <h3 className="text-2xl font-extrabold font-logo">
+                                    <span className="text-blue-500">Event</span>
+                                    <span className="text-pink-500">Ly</span>
                                 </h3>
                             </Link>
                         </div>
@@ -63,20 +64,36 @@ const Navbar = () => {
                         <Menu as="div" className="relative ml-3">
                             <div>
                                 {!isAuthenticated ? (
-                                    <div className="flex space-x-4">
-                                        <Link
-                                            to="/sign-up"
-                                            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                    <>
+                                        <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                            <span className="sr-only">Open user menu</span>
+                                            <img
+                                                alt="profile"
+                                                src={"https://png.pngtree.com/element_our/20200610/ourmid/pngtree-character-default-avatar-image_2237203.jpg"}
+                                                className="h-8 w-8 rounded-full"
+                                            />
+                                        </MenuButton>
+                                        <MenuItems
+                                            className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                         >
-                                            Register
-                                        </Link>
-                                        <Link
-                                            to="/login"
-                                            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                                        >
-                                            Login
-                                        </Link>
-                                    </div>
+                                            <MenuItem>
+                                                <Link
+                                                    to="/sign-up"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    Register
+                                                </Link>
+                                            </MenuItem>
+                                            <MenuItem>
+                                                <Link
+                                                    to="/login"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                >
+                                                    Login
+                                                </Link>
+                                            </MenuItem>
+                                        </MenuItems>
+                                    </>
                                 ) : (
                                     <>
                                         <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
