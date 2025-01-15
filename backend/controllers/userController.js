@@ -35,7 +35,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     const cloudinaryResponse = await cloudinary.uploader.upload(
       profileImage.tempFilePath,
       {
-        folder: "EventLy TBPPP",
+        folder: "EventLy_TBPPP",
       }
     );
     if (!cloudinaryResponse || cloudinaryResponse.error) {
