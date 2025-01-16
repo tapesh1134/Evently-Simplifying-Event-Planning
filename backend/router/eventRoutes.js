@@ -13,7 +13,6 @@ import {
   router.post(
     "/create",
     isAuthenticated,
-    isAuthorized("Auctioneer"),
     addNewEvent
   );
   
@@ -22,16 +21,14 @@ import {
   router.get("/auction/:id", isAuthenticated, getEventDetails);
   
   router.get(
-    "/myitems",
+    "/myevents",
     isAuthenticated,
-    isAuthorized("Auctioneer"),
     getMyEvent
   );
   
   router.delete(
     "/delete/:id",
     isAuthenticated,
-    isAuthorized("Auctioneer"),
     removeFromEvent
   );
   
