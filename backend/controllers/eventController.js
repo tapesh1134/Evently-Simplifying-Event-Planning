@@ -109,21 +109,15 @@ export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
 
 export const getEventDetails = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
-
-    // Validate the ID
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return next(new ErrorHandler("Invalid Id format.", 400));
     }
 
-    // Use the imported Event model
     const event = await Event.findById(id);
-
-    // If the event is not found
     if (!event) {
         return next(new ErrorHandler("Event not found.", 404));
     }
 
-    // Respond with event details
     res.status(200).json({
         success: true,
         event,
@@ -141,21 +135,14 @@ export const getMyEvent = catchAsyncErrors(async (req, res, next) => {
 export const removeFromEvent = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
 
-    // Validate ObjectId format
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return next(new ErrorHandler("Invalid ID format.", 400));
     }
-
-    // Find the event by ID
     const event = await Event.findById(id);
     if (!event) {
         return next(new ErrorHandler("Event not found.", 404));
     }
-
-    // Delete the event
     await event.deleteOne();
-
-    // Respond to the client
     res.status(200).json({
         success: true,
         message: "Event item deleted successfully.",

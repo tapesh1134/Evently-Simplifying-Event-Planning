@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// Thunks for asynchronous actions
 export const getAllEventItems = createAsyncThunk(
   "event/getAllEventItems",
   async (_, { rejectWithValue }) => {
@@ -76,7 +75,6 @@ export const deleteEvent = createAsyncThunk(
   }
 );
 
-// Slice
 const eventSlice = createSlice({
   name: "event",
   initialState: {
@@ -88,7 +86,6 @@ const eventSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // For getting all event items
       .addCase(getAllEventItems.pending, (state) => {
         state.loading = true;
       })
@@ -100,7 +97,6 @@ const eventSlice = createSlice({
         state.loading = false;
       })
       
-      // For getting my event items
       .addCase(getMyEventItems.pending, (state) => {
         state.loading = true;
       })
@@ -112,7 +108,6 @@ const eventSlice = createSlice({
         state.loading = false;
       })
       
-      // For getting event detail
       .addCase(getEventDetail.pending, (state) => {
         state.loading = true;
       })
@@ -124,7 +119,6 @@ const eventSlice = createSlice({
         state.loading = false;
       })
       
-      // For creating an event
       .addCase(createEvent.pending, (state) => {
         state.loading = true;
       })
@@ -135,7 +129,6 @@ const eventSlice = createSlice({
         state.loading = false;
       })
       
-      // For deleting an event
       .addCase(deleteEvent.pending, (state) => {
         state.loading = true;
       })
