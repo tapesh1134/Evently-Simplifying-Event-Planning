@@ -18,7 +18,7 @@ import {
   
   router.get("/allitems", getAllEvents);
   
-  router.get("/auction/:id", isAuthenticated, getEventDetails);
+  router.get("/event/:id", isAuthenticated, getEventDetails);
   
   router.get(
     "/myevents",

@@ -13,64 +13,70 @@ export const addNewEvent = catchAsyncErrors(async (req, res, next) => {
     const { image } = req.files;
 
     const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
     if (!allowedFormats.includes(image.mimetype)) {
         return next(new ErrorHandler("File format not supported.", 400));
     }
+    if (image.size > MAX_FILE_SIZE) {
+        return next(new ErrorHandler("File size exceeds 5 MB.", 400));
+    }
 
-    const {
-        title,
-        description,
-        startTime,
-        endTime,
-    } = req.body;
-    if (
-        !title ||
-        !description ||
-        !startTime ||
-        !endTime
-    ) {
-        return next(new ErrorHandler("Please provide all details.", 400));
+    const { title, description, startTime, endTime } = req.body;
+
+    if (!title || !description || !startTime || !endTime) {
+        return next(new ErrorHandler("Please provide all event details.", 400));
     }
-    if (new Date(startTime) < Date.now()) {
+
+    const startDate = new Date(startTime);
+    const endDate = new Date(endTime);
+
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+        return next(new ErrorHandler("Invalid date format.", 400));
+    }
+
+    if (startDate < Date.now()) {
         return next(
             new ErrorHandler(
-                "Event starting time must be greater than present time.",
+                "Event starting time must be greater than the current time.",
                 400
             )
         );
     }
-    if (new Date(startTime) >= new Date(endTime)) {
+    if (startDate >= endDate) {
         return next(
             new ErrorHandler(
-                "Event starting time must be less than ending time.",
+                "Event starting time must be earlier than the ending time.",
                 400
             )
         );
     }
+
     const alreadyOneEventActive = await Event.find({
         createdBy: req.user._id,
         endTime: { $gt: Date.now() },
     });
+
     if (alreadyOneEventActive.length > 0) {
-        return next(new ErrorHandler("You already have one active Event.", 400));
+        return next(new ErrorHandler("You already have one active event.", 400));
     }
+
     try {
-        const cloudinaryResponse = await cloudinary.uploader.upload(
-            image.tempFilePath,
-            {
-                folder: "EventLy_TBPPP_EventS",
-            }
-        );
+        const cloudinaryResponse = await cloudinary.uploader.upload(image.tempFilePath, {
+            folder: "EventLy_TBPPP_EventS",
+        });
+
         if (!cloudinaryResponse || cloudinaryResponse.error) {
             console.error(
                 "Cloudinary error:",
-                cloudinaryResponse.error || "Unknown cloudinary error."
+                cloudinaryResponse.error || "Unknown Cloudinary error."
             );
             return next(
-                new ErrorHandler("Failed to upload Event image to cloudinary.", 500)
+                new ErrorHandler("Failed to upload event image to Cloudinary.", 500)
             );
         }
-        const Event = await Event.create({
+
+        const newEvent = await Event.create({
             title,
             description,
             startTime,
@@ -81,17 +87,17 @@ export const addNewEvent = catchAsyncErrors(async (req, res, next) => {
             },
             createdBy: req.user._id,
         });
+
         return res.status(201).json({
             success: true,
-            message: `Event item created and will be listed on Event page at ${startTime}`,
-            Event,
+            message: `Event created and will be listed on the Event page at ${startTime}.`,
+            newEvent,
         });
     } catch (error) {
-        return next(
-            new ErrorHandler(error.message || "Failed to created Event.", 500)
-        );
+        return next(new ErrorHandler(error.message || "Failed to create event.", 500));
     }
 });
+
 
 export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
     let events = await Event.find();
@@ -103,16 +109,24 @@ export const getAllEvents = catchAsyncErrors(async (req, res, next) => {
 
 export const getEventDetails = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
+
+    // Validate the ID
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return next(new ErrorHandler("Invalid Id format.", 400));
     }
-    const Event = await Event.findById(id);
-    if (!Event) {
+
+    // Use the imported Event model
+    const event = await Event.findById(id);
+
+    // If the event is not found
+    if (!event) {
         return next(new ErrorHandler("Event not found.", 404));
     }
+
+    // Respond with event details
     res.status(200).json({
         success: true,
-        Event,
+        event,
     });
 });
 
@@ -126,14 +140,22 @@ export const getMyEvent = catchAsyncErrors(async (req, res, next) => {
 
 export const removeFromEvent = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
+
+    // Validate ObjectId format
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return next(new ErrorHandler("Invalid Id format.", 400));
+        return next(new ErrorHandler("Invalid ID format.", 400));
     }
-    const Event = await Event.findById(id);
-    if (!Event) {
+
+    // Find the event by ID
+    const event = await Event.findById(id);
+    if (!event) {
         return next(new ErrorHandler("Event not found.", 404));
     }
-    await Event.deleteOne();
+
+    // Delete the event
+    await event.deleteOne();
+
+    // Respond to the client
     res.status(200).json({
         success: true,
         message: "Event item deleted successfully.",

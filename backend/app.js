@@ -6,7 +6,8 @@ import fileUpload from "express-fileupload";
 import { connection } from "./database/connection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./router/userRoutes.js";
-import eventRouter from "./router/eventRoutes.js"
+import eventRouter from "./router/eventRoutes.js";
+import { endedEventCron } from "./automation/endedEventCron.js";
 
 const app = express();
 config({
@@ -34,7 +35,7 @@ app.use(
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/events", eventRouter);
 
-
+// endedEventCron();
 connection();
 app.use(errorMiddleware);
 
