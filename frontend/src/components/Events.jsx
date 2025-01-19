@@ -20,7 +20,7 @@ const Events = () => {
   }, [dispatch, showAllEvents]);
 
   return (
-    <article className="flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8">
+    <article className="flex min-h-full flex-1 flex-col min-h-screen justify-center px-6 py-4 lg:px-8">
       <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
         <button
           onClick={() => setShowAllEvents(true)}
