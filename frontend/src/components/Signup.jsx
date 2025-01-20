@@ -123,7 +123,6 @@ const Signup = () => {
                         </div>
                         <div className="flex flex-col sm:flex-1 gap-2">
                             <label className="block text-sm/6 font-medium text-gray-900">
-                                Profile Image
                             </label>
                             <div className="flex items-center gap-3">
                                 <img
