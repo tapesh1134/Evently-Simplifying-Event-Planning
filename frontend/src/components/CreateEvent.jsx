@@ -66,7 +66,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <article className="w-full px-5 pt-5 flex flex-col items-center">
+    <article className="w-full px-5 pt-5 flex flex-col min-h-screen items-center">
       <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Create Event</h1>
       <div className="bg-white w-full max-w-4xl px-6 py-8 rounded-md shadow-md">
         <form className="flex flex-col gap-6" onSubmit={handleCreateEvent}>
