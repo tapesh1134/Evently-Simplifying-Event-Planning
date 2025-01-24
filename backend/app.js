@@ -7,7 +7,7 @@ import { connection } from "./database/connection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./router/userRoutes.js";
 import eventRouter from "./router/eventRoutes.js";
-import { endedEventCron } from "./automation/endedEventCron.js";
+import superAdminRouter from "./router/superAdminRoutes.js"
 
 const app = express();
 config({
@@ -34,6 +34,8 @@ app.use(
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/events", eventRouter);
+app.use("/api/v1/superadmin", superAdminRouter);
+
 connection();
 app.use(errorMiddleware);
 
