@@ -10,7 +10,8 @@ const Signup = () => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [role, setRole] = useState("");
-    const [password, setPassword] = useState(""); const [profileImage, setProfileImage] = useState("");
+    const [password, setPassword] = useState(""); 
+    const [profileImage, setProfileImage] = useState("");
     const [profileImagePreview, setProfileImagePreview] = useState("");
 
     const { loading, isAuthenticated } = useSelector((state) => state.user);
@@ -48,119 +49,111 @@ const Signup = () => {
 
     return (
         <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8">
-                <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
-                    <h1
-                        className={`mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900`}
-                    >
-                        Register for new Account
-                    </h1>
-                    <form
-                        className="flex flex-col gap-5 w-full"
-                        onSubmit={handleRegister}
-                    >
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Full Name</label>
+            <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-6">
+                <div className="bg-white shadow-lg rounded-lg w-full max-w-2xl px-8 py-10">
+                    <h1 className="text-3xl font-extrabold text-gray-800 text-center mb-6">Register for a New Account</h1>
+                    <form className="space-y-6" onSubmit={handleRegister}>
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Full Name</label>
                                 <input
                                     type="text"
                                     value={userName}
                                     onChange={(e) => setUserName(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="John Doe"
                                 />
                             </div>
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Email</label>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Email</label>
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="example@example.com"
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col gap-4 sm:flex-row"> 
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Phone</label>
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Phone</label>
                                 <input
                                     type="number"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="1234567890"
                                 />
                             </div>
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Address</label>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Address</label>
                                 <input
                                     type="text"
                                     value={address}
                                     onChange={(e) => setAddress(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="123 Main St"
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Role</label>
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Role</label>
                                 <select
                                     value={role}
                                     onChange={(e) => setRole(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 >
                                     <option value="">Select Role</option>
                                     <option value="User">User</option>
                                 </select>
                             </div>
-                            <div className="flex flex-col sm:flex-1">
-                                <label className="block text-sm/6 font-medium text-gray-900">Password</label>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Password</label>
                                 <input
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="********"
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col sm:flex-1 gap-2">
-                            <label className="block text-sm/6 font-medium text-gray-900">
-                                Profile Image
-                            </label>
-                            <div className="flex items-center gap-3">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Profile Image</label>
+                            <div className="mt-2 flex items-center">
                                 <img
-                                    src={
-                                        profileImagePreview
-                                            ? profileImagePreview
-                                            : "/imageHolder.jpg"
-                                    }
+                                    src={profileImagePreview || "/imageHolder.jpg"}
                                     alt="profileImagePreview"
-                                    className="w-14 h-14 rounded-full"
+                                    className="h-16 w-16 rounded-full border-2 border-gray-300"
                                 />
-                                <input type="file" onChange={imageHandler} />
+                                <input
+                                    type="file"
+                                    onChange={imageHandler}
+                                    className="ml-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
                             </div>
                         </div>
 
                         <button
-                            className="flex w-full justify-center rounded-md bg-indigo-600 w-[420px]  px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600rounded-md text-white mx-auto lg:w-[500px]"
+                            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             type="submit"
                             disabled={loading}
                         >
-                            {loading && "Registering..."}
-                            {!loading && "Register"}
+                            {loading ? "Registering..." : "Register"}
                         </button>
                     </form>
-                    <p className="mt-10 text-center text-sm/6 text-gray-500">
+                    <p className="mt-6 text-center text-sm text-gray-500">
                         Already a member?{' '}
-                        <a className="font-semibold text-indigo-600 hover:text-indigo-500">
-                            <Link
-                                to={"/Login"}
-                            >
-                                Login
-                            </Link>
-                        </a>
+                        <Link to="/Login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                            Login
+                        </Link>
                     </p>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
+
 export default Signup;
