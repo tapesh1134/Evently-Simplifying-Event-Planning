@@ -50,13 +50,11 @@ const Signup = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
-      {/* Background Gradient Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-80 h-80 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
       </div>
 
-      {/* Form Section */}
       <div className="relative z-10 w-full sm:max-w-md bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-8 shadow-2xl space-y-6">
         <h2 className="text-3xl font-extrabold text-center text-white">
           Register for a new Account
