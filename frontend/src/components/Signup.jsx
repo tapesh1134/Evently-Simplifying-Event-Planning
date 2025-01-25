@@ -11,8 +11,7 @@ const Signup = () => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [role, setRole] = useState("");
-    const [password, setPassword] = useState("");
-    const [profileImage, setProfileImage] = useState("");
+    const [password, setPassword] = useState(""); const [profileImage, setProfileImage] = useState("");
     const [profileImagePreview, setProfileImagePreview] = useState("");
 
     const { loading, isAuthenticated } = useSelector((state) => state.user);
@@ -49,112 +48,121 @@ const Signup = () => {
     };
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
-            <div className="absolute inset-0">
-                <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
-                <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
-            </div>
-
-            <div className="relative w-full sm:max-w-md bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-8 shadow-2xl space-y-6">
-                <h2 className="text-3xl font-extrabold text-center text-white">
-                    Register for a new Account
-                </h2>
-
-                <form onSubmit={handleRegister} className="space-y-6">
-                    <div className="flex flex-col gap-4 sm:flex-row">
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="userName" className="text-sm font-medium text-gray-100">Full Name</label>
-                            <input
-                                type="text"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            />
+        <>
+            <div className="flex min-h-full flex-1 flex-col min-h-screen justify-center px-6 py-4 lg:px-8">
+                <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
+                    <h1
+                        className={`mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900`}
+                    >
+                        Register for new Account
+                    </h1>
+                    <form
+                        className="flex flex-col gap-5 w-full"
+                        onSubmit={handleRegister}
+                    >
+                        <div className="flex flex-col gap-4 sm:flex-row">
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Full Name</label>
+                                <input
+                                    type="text"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Email</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
                         </div>
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="email" className="text-sm font-medium text-gray-100">Email</label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            />
+                        <div className="flex flex-col gap-4 sm:flex-row"> 
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Phone</label>
+                                <input
+                                    type="number"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Address</label>
+                                <input
+                                    type="text"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="flex flex-col gap-4 sm:flex-row">
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="phone" className="text-sm font-medium text-gray-100">Phone</label>
-                            <input
-                                type="number"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            />
+                        <div className="flex flex-col gap-4 sm:flex-row">
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Role</label>
+                                <select
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                >
+                                    <option value="">Select Role</option>
+                                    <option value="User">User</option>
+                                </select>
+                            </div>
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Password</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
                         </div>
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="address" className="text-sm font-medium text-gray-100">Address</label>
-                            <input
-                                type="text"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            />
+                        <div className="flex flex-col sm:flex-1 gap-2">
+                            <label className="block text-sm/6 font-medium text-gray-900">
+                            </label>
+                            <div className="flex items-center gap-3">
+                                <img
+                                    src={
+                                        profileImagePreview
+                                            ? profileImagePreview
+                                            : "/imageHolder.jpg"
+                                    }
+                                    alt="profileImagePreview"
+                                    className="w-14 h-14 rounded-full"
+                                />
+                                <input type="file" onChange={imageHandler} />
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="flex flex-col gap-4 sm:flex-row">
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="role" className="text-sm font-medium text-gray-100">Role</label>
-                            <select
-                                value={role}
-                                onChange={(e) => setRole(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            >
-                                <option value="">Select Role</option>
-                                <option value="User">User</option>
-                            </select>
-                        </div>
-                        <div className="flex flex-col sm:flex-1">
-                            <label htmlFor="password" className="text-sm font-medium text-gray-100">Password</label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col gap-4 sm:flex-row items-center">
-                        <img
-                            src={profileImagePreview ? profileImagePreview : "/imageHolder.jpg"}
-                            alt="profile preview"
-                            className="w-14 h-14 rounded-full"
-                        />
-                        <input type="file" onChange={imageHandler} className="text-sm text-gray-900" />
-                    </div>
 
                     <div>
                         <button
+                            className="flex w-full justify-center rounded-md bg-indigo-600 w-[420px]  px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600rounded-md text-white mx-auto lg:w-[500px]"
                             type="submit"
                             className="w-full rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-2 focus:outline-indigo-600"
                             disabled={loading}
                         >
-                            {loading ? <Spinner /> : "Register"}
+                            {loading && "Registering..."}
+                            {!loading && "Register"}
                         </button>
-                    </div>
-                </form>
-
-                <p className="mt-6 text-center text-sm text-gray-500">
-                    Already a member?{" "}
-                    <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                        Login
-                    </Link>
-                </p>
+                    </form>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500">
+                        Already a member?{' '}
+                        <a className="font-semibold text-indigo-600 hover:text-indigo-500">
+                            <Link
+                                to={"/Login"}
+                            >
+                                Login
+                            </Link>
+                        </a>
+                    </p>
+                </div>
             </div>
-        </div>
-    );
-};
-
+        </>
+    )
+}
 export default Signup;
