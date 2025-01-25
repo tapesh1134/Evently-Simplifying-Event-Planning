@@ -13,7 +13,7 @@ const UserProfile = () => {
   }, [isAuthenticated]);
   return (
     <>
-      <section className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
+      <section className="bg-white mx-auto w-full min-h-screen h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
         {loading ? (
           <Spinner />
         ) : (

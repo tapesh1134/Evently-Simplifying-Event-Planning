@@ -49,13 +49,20 @@ const Signup = () => {
 
     return (
         <>
-            <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-6">
-                <div className="bg-white shadow-lg rounded-lg w-full max-w-2xl px-8 py-10">
-                    <h1 className="text-3xl font-extrabold text-gray-800 text-center mb-6">Register for a New Account</h1>
-                    <form className="space-y-6" onSubmit={handleRegister}>
-                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Full Name</label>
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8">
+                <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
+                    <h1
+                        className={`mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900`}
+                    >
+                        Register for new Account
+                    </h1>
+                    <form
+                        className="flex flex-col gap-5 w-full"
+                        onSubmit={handleRegister}
+                    >
+                        <div className="flex flex-col gap-4 sm:flex-row">
+                            <div className="flex flex-col sm:flex-1">
+                                <label className="block text-sm/6 font-medium text-gray-900">Full Name</label>
                                 <input
                                     type="text"
                                     value={userName}
@@ -120,9 +127,11 @@ const Signup = () => {
                                 />
                             </div>
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Profile Image</label>
-                            <div className="mt-2 flex items-center">
+                        <div className="flex flex-col sm:flex-1 gap-2">
+                            <label className="block text-sm/6 font-medium text-gray-900">
+                                Profile Image
+                            </label>
+                            <div className="flex items-center gap-3">
                                 <img
                                     src={profileImagePreview || "/imageHolder.jpg"}
                                     alt="profileImagePreview"
