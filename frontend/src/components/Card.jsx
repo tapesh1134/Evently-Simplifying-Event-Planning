@@ -45,22 +45,23 @@ const Card = ({ imgSrc, title, startTime, endTime, id }) => {
   return (
     <Link
       to={`/events/event/${id}`}
-      className="flex flex-col bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl group w-80 h-70"
+      className="flex flex-col bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg shadow-2xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:scale-105 hover:shadow-3xl group w-70 h-70"
     >
-      <div className="relative w-full h-40">
+      <div className="relative w-full h-48">
         <img
           src={imgSrc}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          style={{ objectFit: "cover", maxHeight: "150px" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
       </div>
 
-      <div className="p-4 flex flex-col justify-between h-full">
-        <h5 className="text-xl font-semibold text-gray-800 group-hover:text-[#d6482b] mb-2">
+      <div className="p-6 flex flex-col justify-between h-full">
+        <h5 className="text-2xl font-semibold text-white group-hover:text-[#d6482b] mb-3">
           {title}
         </h5>
-        <p className="text-gray-600 text-sm flex-grow">
+        <p className="text-gray-300 text-sm flex-grow">
           {timeLeft.type}{" "}
           {Object.keys(timeLeft).length > 1 ? (
             <span className="font-bold">{formatTimeLeft(timeLeft)}</span>

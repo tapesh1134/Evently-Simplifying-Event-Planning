@@ -6,90 +6,101 @@ import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const { user, isAuthenticated, loading } = useSelector((state) => state.user);
   const navigateTo = useNavigate();
+
   useEffect(() => {
     if (!isAuthenticated) {
-      navigateTo("/");
+      navigateTo("/login");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigateTo]);
+
   return (
-    <>
-      <section className="bg-white mx-auto w-full min-h-screen h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12 flex items-center justify-center">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
+      </div>
+
+      <div className="relative w-full sm:max-w-lg p-8 shadow-lg rounded-xl">
         {loading ? (
           <Spinner />
         ) : (
-          <>
-            <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
-              <img
-                src={user.profileImage?.url}
-                alt="/imageHolder.jpg"
-                className="w-36 h-36 rounded-full"
-              />
+          <div className="text-center">
+            <img
+              src={user.profileImage?.url || "/imageHolder.jpg"}
+              alt="Profile"
+              className="w-36 h-36 rounded-full mx-auto mb-6"
+            />
+            <h3 className="text-2xl font-semibold mb-6">Personal Details</h3>
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-4">
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Username</label>
+                    <input
+                      type="text"
+                      defaultValue={user.userName}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
+                  </div>
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                      type="text"
+                      defaultValue={user.email}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
+                  </div>
+                </div>
 
-                <div className="mb-6 w-full max-w-4xl bg-white p-6 shadow-md rounded-lg">
-                  <h3 className="text-xl font-semibold mb-4">Personal Details</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Username</label>
-                      <input
-                        type="text"
-                        defaultValue={user.userName}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Email</label>
-                      <input
-                        type="text"
-                        defaultValue={user.email}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Phone</label>
-                      <input
-                        type="number"
-                        defaultValue={user.phone}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Address</label>
-                      <input
-                        type="text"
-                        defaultValue={user.address}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Role</label>
-                      <input
-                        type="text"
-                        defaultValue={user.role}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Joined On</label>
-                      <input
-                        type="text"
-                        defaultValue={user.createdAt?.substring(0, 10)}
-                        className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
-                        disabled
-                      />
-                    </div>
+                <div className="flex gap-4">
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Phone</label>
+                    <input
+                      type="number"
+                      defaultValue={user.phone}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
+                  </div>
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Address</label>
+                    <input
+                      type="text"
+                      defaultValue={user.address}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Role</label>
+                    <input
+                      type="text"
+                      defaultValue={user.role}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
+                  </div>
+                  <div className="flex flex-col w-1/2">
+                    <label className="block text-sm font-medium text-gray-700">Joined On</label>
+                    <input
+                      type="text"
+                      defaultValue={user.createdAt?.substring(0, 10)}
+                      className="w-full mt-1 p-2 border-gray-300 rounded-md focus:outline-none"
+                      disabled
+                    />
                   </div>
                 </div>
               </div>
-
-          </>
+            </div>
+          </div>
         )}
-      </section>
-    </>
+      </div>
+    </div>
   );
 };
 

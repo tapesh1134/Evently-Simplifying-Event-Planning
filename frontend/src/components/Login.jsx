@@ -3,6 +3,7 @@ import { login } from "../store/slices/userSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";  // Make sure to import your Spinner component
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,70 +27,67 @@ const Login = () => {
       navigateTo("/");
     }
   }, [dispatch, isAuthenticated, loading]);
+
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col min-h-screen justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                   type="password"
-                   value={password}
-                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                 {loading ? "Logging In..." : "Login"}
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Not a member?{' '}
-            <a className="font-semibold text-indigo-600 hover:text-indigo-500">
-              <Link
-                to={"/sign-up"}
-              >
-                Register
-              </Link>
-            </a>
-          </p>
-        </div>
+    <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
       </div>
-    </>
-  )
-}
+
+      <div className="relative sm:w-full sm:max-w-sm w-full bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-8 shadow-2xl space-y-6">
+        <h2 className="text-3xl font-extrabold text-center text-white">
+          Sign in to your account
+        </h2>
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-100">
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-100">
+              Password
+            </label>
+            <div className="mt-2">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="w-full rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600"
+            >
+              {loading ? <Spinner /> : "Login"}
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-gray-400">
+          Not a member?{' '}
+          <Link to="/sign-up" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            Register
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
 export default Login;

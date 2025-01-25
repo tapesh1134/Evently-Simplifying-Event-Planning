@@ -15,76 +15,91 @@ const Events = () => {
     if (showAllEvents) {
       dispatch(getAllEventItems());
     } else {
-      dispatch(getMyEventItems())
+      dispatch(getMyEventItems());
     }
   }, [dispatch, showAllEvents]);
 
   return (
-    <article className="flex min-h-full flex-1 flex-col min-h-screen justify-center px-6 py-4 lg:px-8">
-      <div className="bg-white mx-auto w-full h-auto px-2 flex flex-col gap-4 items-center py-4 justify-center rounded-md">
+    <article className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
+      </div>
+      <div className="relative text-center py-10">
+        <h1 className="text-4xl lg:text-5xl font-extrabold text-white mb-4 font-logo">
+          {showAllEvents ? "All Events" : "My Events"}
+        </h1>
+        <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+          {showAllEvents
+            ? "Discover exciting events happening around you and join the ones that interest you."
+            : "Review and manage the events you have created or joined."}
+        </p>
+      </div>
+
+      <div className="relative flex space-x-6 mt-8">
         <button
           onClick={() => setShowAllEvents(true)}
-          className={`px-6 py-3 text-base font-semibold rounded-full transition-all ease-in-out duration-300 transform ${showAllEvents
-              ? "bg-[#4f46e5] text-white shadow-lg scale-105"
-              : "bg-white text-[#4f46e5] border-2 border-[#4f46e5] hover:bg-[#4f46e5] hover:text-white hover:scale-105 hover:shadow-md"
-            }`}
+          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${
+            showAllEvents
+              ? "bg-blue-600 text-white shadow-lg scale-105"
+              : "bg-gray-800 text-gray-400 border border-gray-600 hover:bg-blue-600 hover:text-white hover:scale-105"
+          }`}
         >
           All Events
         </button>
         <button
           onClick={() => setShowAllEvents(false)}
-          className={`px-6 py-3 text-base font-semibold rounded-full transition-all ease-in-out duration-300 transform ${!showAllEvents
-              ? "bg-[#4f46e5] text-white shadow-lg scale-105"
-              : "bg-white text-[#4f46e5] border-2 border-[#4f46e5] hover:bg-[#4f46e5] hover:text-white hover:scale-105 hover:shadow-md"
-            }`}
+          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${
+            !showAllEvents
+              ? "bg-blue-600 text-white shadow-lg scale-105"
+              : "bg-gray-800 text-gray-400 border border-gray-600 hover:bg-blue-600 hover:text-white hover:scale-105"
+          }`}
         >
           My Events
         </button>
       </div>
 
-      <section className="text-center my-8">
-        <h1 className="text-4xl font-extrabold mb-4 font-logo">
-          {showAllEvents ? "All Events" : "My Events"}
-        </h1>
-      </section>
-
-      {loading ? (
-        <div className="flex justify-center">
-          <Spinner />
-        </div>
-      ) : (
-        <div className="w-full px-4 md:px-8 lg:px-16 xl:px-20 flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 w-full max-w-screen-xl">
+      {/* Events Section */}
+      <div className="relative z-10 max-w-7xl w-full mx-auto px-6 py-12">
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[300px]">
+            <Spinner />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {(showAllEvents ? allEvents : myEvents).length > 0 ? (
-              (showAllEvents ? allEvents : myEvents).map((element) => (
-                // Conditionally render Card or CardTwo
+              (showAllEvents ? allEvents : myEvents).map((event) => (
                 showAllEvents ? (
                   <Card
-                    key={element._id}
-                    title={element.title}
-                    startTime={element.startTime}
-                    endTime={element.endTime}
-                    imgSrc={element.image?.url}
-                    id={element._id}
+                    key={event._id}
+                    title={event.title}
+                    startTime={event.startTime}
+                    endTime={event.endTime}
+                    imgSrc={event.image?.url}
+                    id={event._id}
                   />
                 ) : (
                   <CardTwo
-                    key={element._id}
-                    title={element.title}
-                    startingBid={element.startingBid}
-                    startTime={element.startTime}
-                    endTime={element.endTime}
-                    imgSrc={element.image?.url}
-                    id={element._id}
+                    key={event._id}
+                    title={event.title}
+                    startingBid={event.startingBid}
+                    startTime={event.startTime}
+                    endTime={event.endTime}
+                    imgSrc={event.image?.url}
+                    id={event._id}
                   />
                 )
               ))
             ) : (
-              <p className="text-lg text-gray-500 font-semibold">No events available</p>
+              <div className="col-span-full flex flex-col items-center justify-center mt-8">
+                <p className="text-lg text-gray-400 font-semibold">
+                  No events available. 😔
+                </p>
+              </div>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </article>
   );
 };

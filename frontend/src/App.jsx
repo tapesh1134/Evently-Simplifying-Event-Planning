@@ -15,6 +15,7 @@ import Home from "./components/Home.jsx";
 import CreateEvent from "./components/CreateEvent.jsx";
 import Events from "./components/Events.jsx";
 import EventDetail from "./components/EventDetails.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +28,6 @@ function App() {
     <>
       <Router>
         <Navbar />
-
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -37,6 +36,7 @@ function App() {
           <Route path="/createevent" element={<CreateEvent />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/event/:id" element={<EventDetail />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
 

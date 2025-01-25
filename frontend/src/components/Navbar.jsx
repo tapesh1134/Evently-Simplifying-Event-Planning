@@ -14,11 +14,11 @@ const Navbar = () => {
     };
 
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-gradient-to-r from-gray-900 to-black shadow-xl">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                        <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                             <span className="sr-only">Open main menu</span>
                             <Bars3Icon aria-hidden="true" className="block h-6 w-6 group-data-[open]:hidden" />
                             <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
@@ -27,35 +27,35 @@ const Navbar = () => {
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex-shrink-0 items-center">
                             <Link to="/">
-                                <h3 className="text-2xl font-extrabold font-logo">
+                                <h3 className="text-3xl font-extrabold text-white">
                                     <span className="text-blue-500">Event</span>
                                     <span className="text-pink-500">Ly</span>
                                 </h3>
                             </Link>
                         </div>
-                        <div className="hidden sm:ml-6 sm:flex space-x-4">
+                        <div className="hidden sm:ml-6 sm:flex space-x-6">
                             <Link
                                 to="/"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                className="text-white hover:bg-gray-800 hover:text-yellow-400 rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 Home
                             </Link>
                             <Link
                                 to="/events"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                className="text-white hover:bg-gray-800 hover:text-yellow-400 rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 Events
                             </Link>
                             <Link
                                 to="/createevent"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                className="text-white hover:bg-gray-800 hover:text-yellow-400 rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 Create Event
                             </Link>
-                            {isAuthenticated && user && user.role === "admin" && (
+                            {isAuthenticated && user && user.role === "Super Admin" && (
                                 <Link
                                     to="/dashboard"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                                    className="text-white hover:bg-gray-800 hover:text-yellow-400 rounded-md px-3 py-2 text-sm font-medium"
                                 >
                                     Dashboard
                                 </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                         <button
                             type="button"
-                            className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            className="relative rounded-full bg-gray-800 p-1 text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         >
                             <span className="sr-only">View notifications</span>
                             <BellIcon aria-hidden="true" className="h-6 w-6" />
@@ -84,13 +84,11 @@ const Navbar = () => {
                                                 className="h-8 w-8 rounded-full"
                                             />
                                         </MenuButton>
-                                        <MenuItems
-                                            className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                        >
+                                        <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <MenuItem>
                                                 <Link
                                                     to="/sign-up"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                                                 >
                                                     Register
                                                 </Link>
@@ -98,7 +96,7 @@ const Navbar = () => {
                                             <MenuItem>
                                                 <Link
                                                     to="/login"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                                                 >
                                                     Login
                                                 </Link>
@@ -115,13 +113,11 @@ const Navbar = () => {
                                                 className="h-8 w-8 rounded-full"
                                             />
                                         </MenuButton>
-                                        <MenuItems
-                                            className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                        >
+                                        <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <MenuItem>
                                                 <Link
                                                     to="/me"
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                                                 >
                                                     Profile
                                                 </Link>
@@ -129,7 +125,7 @@ const Navbar = () => {
                                             <MenuItem>
                                                 <div
                                                     onClick={handleLogout}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700 cursor-pointer"
                                                 >
                                                     Logout
                                                 </div>
@@ -147,26 +143,26 @@ const Navbar = () => {
                 <div className="space-y-1 px-2 pb-3 pt-2">
                     <Link
                         to="/"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
                     >
                         Home
                     </Link>
                     <Link
                         to="/events"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
                     >
                         Events
                     </Link>
                     <Link
                         to="/createevent"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
                     >
                         Create Event
                     </Link>
-                    {isAuthenticated && user && user.role === "admin" && (
+                    {isAuthenticated && user && user.role === "Super Admin" && (
                         <Link
                             to="/dashboard"
-                            className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                            className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
                         >
                             Dashboard
                         </Link>
