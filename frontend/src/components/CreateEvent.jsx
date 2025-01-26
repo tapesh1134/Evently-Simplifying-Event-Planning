@@ -66,12 +66,17 @@ const CreateEvent = () => {
   };
 
   return (
-    <article className="w-full px-5 pt-5 flex flex-col min-h-screen items-center">
-      <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Create Event</h1>
-      <div className="bg-white w-full max-w-4xl px-6 py-8 rounded-md shadow-md">
+    <article className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-80 h-80 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
+      </div>
+
+      <div className="relative w-full sm:max-w-4xl bg-gradient-to-r from-gray-800 to-gray-900 shadow-xl rounded-3xl p-8 space-y-8">
+        <h1 className="text-3xl font-bold mb-6 text-center">Create Event</h1>
         <form className="flex flex-col gap-6" onSubmit={handleCreateEvent}>
           <div className="flex flex-col">
-            <label htmlFor="title" className="text-lg font-semibold text-gray-700">
+            <label htmlFor="title" className="text-lg font-semibold">
               Title
             </label>
             <input
@@ -79,11 +84,13 @@ const CreateEvent = () => {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="py-2 px-3 border rounded-md focus:ring focus:ring-[#42b9be]"
+              className="py-2 px-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+              required
             />
           </div>
+
           <div className="flex flex-col">
-            <label htmlFor="description" className="text-lg font-semibold text-gray-700">
+            <label htmlFor="description" className="text-lg font-semibold">
               Description
             </label>
             <textarea
@@ -91,12 +98,14 @@ const CreateEvent = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={5}
-              className="py-2 px-3 border rounded-md focus:ring focus:ring-[#42b9be]"
+              className="py-2 px-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500"
+              required
             ></textarea>
           </div>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex flex-col flex-1">
-              <label htmlFor="startTime" className="text-lg font-semibold text-gray-700">
+
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              <label htmlFor="startTime" className="text-lg font-semibold">
                 Event Start Time
               </label>
               <DatePicker
@@ -107,11 +116,12 @@ const CreateEvent = () => {
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 dateFormat="MMMM d, yyyy h:mm aa"
-                className="py-2 px-3 border rounded-md focus:ring focus:ring-[#42b9be]"
+                className="py-2 px-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+                required
               />
             </div>
-            <div className="flex flex-col flex-1">
-              <label htmlFor="endTime" className="text-lg font-semibold text-gray-700">
+            <div className="flex-1">
+              <label htmlFor="endTime" className="text-lg font-semibold">
                 Event End Time
               </label>
               <DatePicker
@@ -122,17 +132,23 @@ const CreateEvent = () => {
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 dateFormat="MMMM d, yyyy h:mm aa"
-                className="py-2 px-3 border rounded-md focus:ring focus:ring-[#42b9be]"
+                className="py-2 px-4 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+                required
               />
             </div>
           </div>
+
           <div className="flex flex-col">
-            <label htmlFor="image" className="text-lg font-semibold text-gray-700">
+            <label htmlFor="image" className="text-lg font-semibold">
               Event Image
             </label>
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md p-6">
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-lg p-6">
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-40 h-auto mb-4" />
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-40 h-auto mb-4 rounded-md"
+                />
               ) : (
                 <p className="text-gray-500">No image selected</p>
               )}
@@ -142,19 +158,21 @@ const CreateEvent = () => {
                 accept="image/png, image/jpeg, image/webp"
                 className="hidden"
                 onChange={imageHandler}
+                required
               />
               <label
                 htmlFor="image"
-                className="cursor-pointer font-semibold text-indigo-600 hover:text-indigo-500 transition-all"
+                className="cursor-pointer font-semibold text-blue-600 hover:text-blue-500 transition"
               >
                 Upload Image
               </label>
             </div>
           </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full justify-center rounded-md bg-indigo-600 w-[420px]  px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600rounded-md text-white mx-auto lg:w-[500px]"
+            className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition"
           >
             {loading ? "Creating Event..." : "Create Event"}
           </button>
