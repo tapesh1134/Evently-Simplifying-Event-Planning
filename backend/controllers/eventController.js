@@ -4,6 +4,8 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
+import { io } from "../app.js";
+import { Notification } from "../models/notificationSchema.js";
 
 export const addNewEvent = catchAsyncErrors(async (req, res, next) => {
     if (!req.files || Object.keys(req.files).length === 0) {
@@ -87,7 +89,16 @@ export const addNewEvent = catchAsyncErrors(async (req, res, next) => {
             },
             createdBy: req.user._id,
         });
+        // Create notification
+        const notification = new Notification({
+            event: newEvent._id,
+            message: `New event "${title}" has been added.`,
+        });
 
+        await notification.save();
+
+        // Emit event to all connected clients via socket.io
+        io.emit("eventNotification", notification);
         return res.status(201).json({
             success: true,
             message: `Event created and will be listed on the Event page at ${startTime}.`,
