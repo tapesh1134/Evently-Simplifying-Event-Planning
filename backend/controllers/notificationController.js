@@ -28,3 +28,23 @@ export const markAsRead = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const markAllAsRead = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    await Notification.updateMany(
+      { readBy: { $ne: userId } },
+      { $addToSet: { readBy: userId } }
+    );
+
+    return res.status(200).json({ message: "All notifications marked as read" });
+  } catch (error) {
+    console.error("Error marking all notifications as read:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
