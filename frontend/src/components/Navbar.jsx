@@ -17,7 +17,7 @@ import {
     addNotification,
 } from "../store/slices/notificationSlice";
 import { logout } from "../store/slices/userSlice";
-import socket from "../socket";
+import socket from "../socket"; // Ensure you have socket initialized
 
 const Navbar = () => {
     const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -25,11 +25,14 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     const [unreadCount, setUnreadCount] = useState(0);
-    const [visibleNotifications, setVisibleNotifications] = useState(6);
+    const [visibleNotifications, setVisibleNotifications] = useState(6); // Initially show 6 notifications
+
+    // Fetch notifications when component mounts
     useEffect(() => {
         dispatch(fetchNotifications());
     }, [dispatch]);
 
+    // Listen for real-time notifications
     useEffect(() => {
         socket.on("newNotification", (notification) => {
             dispatch(addNotification(notification));
@@ -42,11 +45,13 @@ const Navbar = () => {
 
     useEffect(() => {
         if (user && user._id) {
+            // Filter unread notifications
             const unreadNotifications = notifications.filter(
                 (notif) => Array.isArray(notif.readBy) && !notif.readBy.includes(user._id)
             );
-    
-            setUnreadCount((prevCount) => 
+
+            // Update unread count only if it changes
+            setUnreadCount((prevCount) =>
                 prevCount !== unreadNotifications.length ? unreadNotifications.length : prevCount
             );
         }
@@ -58,14 +63,17 @@ const Navbar = () => {
 
     const handleMarkAllAsRead = () => {
         if (user && user._id) {
-          dispatch(markAllAsRead(user._id));
+            dispatch(markAllAsRead(user._id));
         }
     };
+
+    // Show more notifications (increase the number of visible notifications)
     const handleShowMore = () => {
-        setVisibleNotifications((prevVisible) => prevVisible + 6);
+        setVisibleNotifications((prevVisible) => prevVisible + 6); // Load 6 more notifications
     };
 
     return (
+
         <Disclosure as="nav" className="bg-gradient-to-r from-gray-900 to-black shadow-xl">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
@@ -186,6 +194,36 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
+            <DisclosurePanel className="sm:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2">
+                    <Link
+                        to="/"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
+                    >
+                        Home
+                    </Link>
+                    <Link
+                        to="/events"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
+                    >
+                        Events
+                    </Link>
+                    <Link
+                        to="/createevent"
+                        className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
+                    >
+                        Create Event
+                    </Link>
+                    {isAuthenticated && user && user.role === "Super Admin" && (
+                        <Link
+                            to="/dashboard"
+                            className="text-white hover:bg-gray-800 hover:text-yellow-400 block rounded-md px-3 py-2 text-base font-medium"
+                        >
+                            Dashboard
+                        </Link>
+                    )}
+                </div>
+            </DisclosurePanel>
         </Disclosure>
     );
 };
