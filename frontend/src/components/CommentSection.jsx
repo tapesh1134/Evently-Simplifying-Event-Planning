@@ -13,7 +13,9 @@ const CommentSection = ({ eventId, user }) => {
     dispatch(fetchComments(eventId));
 
     socket.on("receiveComment", (comment) => {
-      dispatch(addComment(comment));
+      if (comment?.postId === eventId) {
+        dispatch(addComment(comment));
+      }
     });
 
     return () => {
@@ -24,69 +26,69 @@ const CommentSection = ({ eventId, user }) => {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
-  
+
     const commentData = {
       text: newComment,
-      username: user?.userName || "Anonymous",  // Use username from user or default to "Anonymous"
+      username: user?.userName || "Anonymous",
       postId: eventId,
-      role: user?.role || "User", // Use user's role or default to "User"
+      role: user?.role || "User",
     };
-  
+
     try {
-      // Dispatch postComment to send the comment to the backend
-      await dispatch(postComment(commentData));
-  
-      // Emit the comment via socket (for real-time updates)
+      dispatch(postComment(commentData));
       socket.emit("sendComment", commentData);
-  
-      // Clear input after sending the comment
       setNewComment("");
     } catch (err) {
       console.error("Error posting comment:", err);
     }
   };
-  
+
 
   return (
-    <div className="p-6 border-t border-gray-700">
-      <h2 className="text-2xl font-bold mb-4">Comments</h2>
+    <div className="bg-gray-900 text-white rounded-lg shadow-md max-w-lg mx-auto text-left w-full">
+      <h2 className="text-lg font-semibold mb-3">Comments</h2>
 
-      {/* Display Error Message if any */}
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && <p className="text-red-500 mb-3 text-xs">{error}</p>}
 
-      {/* Comment Form */}
-      <form onSubmit={handleCommentSubmit} className="mb-4">
+      <form onSubmit={handleCommentSubmit} className="mb-4 flex gap-2">
         <input
           type="text"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder={user ? "Write a comment..." : "Please log in to comment."}
-          className="border p-2 w-full rounded text-black"
-          disabled={!user} // Disable the input if user is not logged in
+          placeholder={user ? "Write a comment..." : "Log in to comment"}
+          className="flex-1 p-2 rounded-md bg-gray-800 text-white text-xs focus:ring-2 focus:ring-blue-500 outline-none"
+          disabled={!user}
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-3 py-1 rounded mt-2"
-          disabled={!user || loading} // Disable the button if user is not logged in or while loading
+          className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-xs transition duration-300 disabled:opacity-50"
+          disabled={!user || loading}
         >
-          {loading ? "Posting..." : "Post"}
+          {loading ? "..." : "Post"}
         </button>
       </form>
 
-      {/* Display Comments */}
       {loading ? (
         <Spinner />
       ) : comments.length === 0 ? (
-        <p className="text-gray-500">No comments yet.</p>
+        <p className="text-gray-500 text-xs">No comments yet.</p>
       ) : (
-        <ul>
+        <div className="space-y-5">
           {comments.map((comment, index) => (
-            <li key={index} className="border-b py-2">
-              <strong>{comment.username}: </strong>
-              {comment.text}
-            </li>
+            <div key={index} className="pl-0">
+              <p className="text-blue-400 font-semibold text-[11px] mb-1">{comment.username}</p>
+              <div
+                className="p-3 rounded-lg bg-gray-800 text-xs w-full"
+                style={{
+                  border: comment.text.length > 40 ? "1px solid rgba(255,255,255,0.1)" : "none",
+                  maxWidth: "90%",
+                }}
+              >
+                <p className="text-gray-300">{comment.text}</p>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

@@ -30,7 +30,7 @@ io.on("connection", (socket) => {
   console.log(`🟢 A user connected: ${socket.id}`);
 
   socket.on("sendComment", (comment) => {
-    io.emit("receiveComment", comment);
+    socket.broadcast.emit("receiveComment", comment);
   });
 
   socket.on("disconnect", () => {

@@ -120,7 +120,7 @@ const Navbar = () => {
                                     </span>
                                 )}
                             </MenuButton>
-                            <MenuItems className="absolute right-0 z-10 mt-2 w-60 bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <MenuItems className="absolute right-0 z-20 mt-2 w-60 bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div className="px-4 py-2 text-white font-semibold">Notifications</div>
                                 {notifications.length === 0 ? (
                                     <div className="text-gray-400 px-4 py-2 text-sm">No notifications</div>

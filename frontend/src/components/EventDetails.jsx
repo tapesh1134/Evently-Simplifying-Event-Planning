@@ -37,31 +37,31 @@ const EventDetail = () => {
   }
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
+    <section className="relative min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6 py-12">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
       </div>
 
       {eventDetail ? (
-        <div className="bg-gray-900 shadow-2xl rounded-3xl max-w-3xl w-full overflow-hidden z-10">
+        <div className="w-full max-w-5xl bg-gray-900 shadow-2xl rounded-3xl overflow-hidden z-10">
           {/* Event Image */}
           <div className="w-full">
             <img
               src={eventDetail.image?.url}
               alt={eventDetail.title}
-              className="w-full object-cover h-72 sm:h-96 rounded-t-3xl"
+              className="w-full h-[50vh] object-cover rounded-t-3xl"
             />
           </div>
 
           {/* Event Details */}
-          <div className="p-6">
-            <h1 className="text-3xl font-bold mb-4 text-center">{eventDetail.title}</h1>
-            <p className="text-gray-300 mb-6 text-center" style={{ userSelect: "text" }}>
+          <div className="p-8">
+            <h1 className="text-4xl font-bold mb-4 text-center">{eventDetail.title}</h1>
+            <p className="text-gray-300 mb-6 text-lg leading-relaxed text-center">
               {eventDetail.description || "No description provided."}
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg" style={{ userSelect: "text" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg text-center">
               <p className="text-gray-400">
                 <strong>Start Time:</strong> {new Date(eventDetail.startTime).toLocaleString()}
               </p>
@@ -71,13 +71,16 @@ const EventDetail = () => {
             </div>
           </div>
 
-          {/* Comment Section */}
-          <CommentSection eventId={id} user={user} />
+          <div className="p-6 border-t border-gray-700 text-left w-full">
+            <CommentSection eventId={id} user={user} />
+          </div>
+
         </div>
       ) : (
         <p className="text-center text-gray-500">Event details not available.</p>
       )}
     </section>
+
   );
 };
 
