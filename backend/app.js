@@ -9,14 +9,13 @@ import userRouter from "./router/userRoutes.js";
 import eventRouter from "./router/eventRoutes.js";
 import superAdminRouter from "./router/superAdminRoutes.js";
 import notificationRouter from "./router/notificationRoutes.js";
+import commentRouter from "./router/commentRoutes.js";
 import http from "http";
 import { Server } from "socket.io";
 
-const app = express();
-config({
-  path: "./config/.env",
-});
+config({ path: "./config/.env" });
 
+const app = express();
 const server = http.createServer(app);
 
 export const io = new Server(server, {
@@ -28,21 +27,24 @@ export const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
+  console.log(`🟢 A user connected: ${socket.id}`);
+
+  socket.on("sendComment", (comment) => {
+    io.emit("receiveComment", comment);
+  });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+    console.log(`🔴 User disconnected: ${socket.id}`);
   });
 });
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: process.env.FRONTEND_URL,
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
 );
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,6 +59,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/superadmin", superAdminRouter);
 app.use("/api/v1/notifications", notificationRouter);
+app.use("/api/v1/comments", commentRouter);
 
 connection();
 app.use(errorMiddleware);
