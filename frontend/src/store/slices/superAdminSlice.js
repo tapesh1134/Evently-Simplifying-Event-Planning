@@ -56,7 +56,7 @@ export const deleteEvent = (id) => async (dispatch) => {
   dispatch(superAdminSlice.actions.requestForEventDelete());
   try {
     const response = await axios.delete(
-      `http://localhost:8000/api/v1/superadmin/event/delete/${id}`,
+      http://localhost:8000/api/v1/superadmin/event/delete/${id},
       { withCredentials: true }
     );
     dispatch(superAdminSlice.actions.successForEventDelete());

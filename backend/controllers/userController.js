@@ -4,6 +4,7 @@ import { User } from "../models/userSchema.js";
 import { v2 as cloudinary } from "cloudinary";
 import { generateToken } from "../utils/jwtToken.js";
 
+//create new user
 export const register = catchAsyncErrors(async (req, res, next) => {
     if (!req.files || Object.keys(req.files).length === 0) {
       return next(new ErrorHandler("Profile Image Required.", 400));
@@ -62,6 +63,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     generateToken(user, "User Registered.", 201, res);
   });
   
+  //login user
   export const login = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -78,6 +80,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     generateToken(user, "Login successfully.", 200, res);
   });
   
+  //get user profile
   export const getProfile = catchAsyncErrors(async (req, res, next) => {
     const user = req.user;
     res.status(200).json({
@@ -86,6 +89,8 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     });
   });
   
+
+  //logout user
   export const logout = catchAsyncErrors(async (req, res, next) => {
     res
       .status(200)

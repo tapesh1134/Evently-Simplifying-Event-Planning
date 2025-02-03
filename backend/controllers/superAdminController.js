@@ -4,6 +4,8 @@ import ErrorHandler from "../middlewares/error.js";
 import { User } from "../models/userSchema.js";
 import { Event } from "../models/eventSchema.js";
 
+
+//delete admin
 export const deleteEvent = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -20,6 +22,7 @@ export const deleteEvent = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+//fetch all admins
 export const fetchAllUsers = catchAsyncErrors(async (req, res, next) => {
     const users = await User.aggregate([
         {
