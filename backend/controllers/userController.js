@@ -48,6 +48,8 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         new ErrorHandler("Failed to upload profile image to cloudinary.", 500)
       );
     }
+
+    //saving new user to DB
     const user = await User.create({
       userName,
       email,
