@@ -21,9 +21,9 @@ const Events = () => {
 
   return (
     <article className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-6">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-pink-500 opacity-20 rounded-full filter blur-3xl"></div>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-80 h-80 bg-blue-500 opacity-20 rounded-full filter blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-[28rem] h-[28rem] bg-pink-500 opacity-20 rounded-full filter blur-3xl animate-pulse" />
       </div>
       <div className="relative text-center py-10">
         <h1 className="text-4xl lg:text-5xl font-extrabold text-white mb-4 font-logo">
@@ -39,21 +39,19 @@ const Events = () => {
       <div className="relative flex space-x-6 mt-8">
         <button
           onClick={() => setShowAllEvents(true)}
-          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${
-            showAllEvents
+          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${showAllEvents
               ? "bg-blue-600 text-white shadow-lg scale-105"
               : "bg-gray-800 text-gray-400 border border-gray-600 hover:bg-blue-600 hover:text-white hover:scale-105"
-          }`}
+            }`}
         >
           All Events
         </button>
         <button
           onClick={() => setShowAllEvents(false)}
-          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${
-            !showAllEvents
+          className={`px-8 py-3 text-lg font-semibold rounded-full transition-transform duration-300 ${!showAllEvents
               ? "bg-blue-600 text-white shadow-lg scale-105"
               : "bg-gray-800 text-gray-400 border border-gray-600 hover:bg-blue-600 hover:text-white hover:scale-105"
-          }`}
+            }`}
         >
           My Events
         </button>

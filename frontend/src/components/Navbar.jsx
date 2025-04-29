@@ -17,7 +17,7 @@ import {
     addNotification,
 } from "../store/slices/notificationSlice";
 import { logout } from "../store/slices/userSlice";
-import socket from "../socket"; // Ensure you have socket initialized
+import socket from "../socket";
 
 const Navbar = () => {
     const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -25,9 +25,8 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     const [unreadCount, setUnreadCount] = useState(0);
-    const [visibleNotifications, setVisibleNotifications] = useState(6); // Initially show 6 notifications
+    const [visibleNotifications, setVisibleNotifications] = useState(6);
 
-    // Fetch notifications when component mounts
     useEffect(() => {
         dispatch(fetchNotifications());
     }, [dispatch]);
