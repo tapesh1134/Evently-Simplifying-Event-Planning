@@ -7,7 +7,6 @@
   <img src="https://img.shields.io/badge/Socket.IO-Integrated-blueviolet" />
   <img src="https://img.shields.io/badge/License-MIT-blue" />
 </p>
-
 ---
 
 ## 📖 About the Project
